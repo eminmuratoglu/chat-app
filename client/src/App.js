@@ -1,27 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
-	const data = {
-		messages: [
-			{ name: 'Jhon', text: 'Hello from Jhon', created_at: 'date' },
-			{ name: 'Marie', text: 'Hello from Marie', created_at: 'date' }
-		]
-	};
-	const [ messages, setMessages ] = useState(data.messages);
+	const [ messages, setMessages ] = useState([]);
 	const [ inputText, setInputText ] = useState('');
+
+	useEffect(() => {
+		getMessages();
+	}, []);
 
 	const handleChange = (e) => {
 		setInputText(e.target.value);
+	};
+
+	const getMessages = async () => {
+		const response = await axios.get('api/messages');
+		setMessages(response.data);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (inputText.trim() !== '') {
 			let newMsg = { name: 'You', text: inputText };
-			setMessages((prev) => {
-				return [ ...prev, newMsg ];
-			});
+			axios.post('api/messages', newMsg);
 		}
 		setInputText('');
 	};
@@ -44,7 +46,3 @@ function App() {
 }
 
 export default App;
-
-// renderMessage = (user, msg) => {
-//   return <p>{user.name}: {msg}</p>
-// }
