@@ -7,24 +7,29 @@ function App() {
 	const [ inputText, setInputText ] = useState('');
 
 	useEffect(() => {
-		getMessages();
+		console.log('in useEffect');
+		renderMessages();
 	}, []);
 
 	const handleChange = (e) => {
 		setInputText(e.target.value);
 	};
 
-	const getMessages = async () => {
+	const renderMessages = async () => {
 		const response = await axios.get('api/messages');
 		setMessages(response.data);
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const addMessage = () => {
 		if (inputText.trim() !== '') {
 			let newMsg = { name: 'You', text: inputText };
 			axios.post('api/messages', newMsg);
 		}
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		addMessage();
 		setInputText('');
 	};
 	return (
