@@ -2,12 +2,18 @@
 const express = require('express');
 const path = require('path');
 // const { Client } = require('pg');
-// const client = new Client();
+// const client = new Client({
+//   host: "localhost",
+//   user: "postgres",
+//   port: 5432,
+//   password: '',
+//   database: "postgres"
+// });
 
 // client.connect();
 
-// client.query('SELECT $1::text as message', [ 'Hello from pg' ], (err, res) => {
-// 	console.log(err ? err.stack : res.rows[o].message);
+// client.query(`Select * from users`, (err, res) => {
+// 	console.log(err ? err.stack : res.rows);
 // 	client.end();
 // });
 
