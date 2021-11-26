@@ -1,1 +1,6 @@
-
+html,
+*,
+*::before,
+*::afer {
+	box-sizing: border-box;
+}
