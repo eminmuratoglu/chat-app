@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+.App h1 {
+	text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.chat_container {
+	display: grid;
+	grid-template-columns: 20rem 40rem;
+	grid-template-rows: minmax(20rem, auto);
+	grid-gap: 1.2rem;
+	justify-content: center;
+	align-items: start;
+}
+.chat-users h3 {
+	margin: 1rem 0 0 0;
+	width: 100%;
+}
+.chat-users {
+	min-height: 20rem;
+	padding-left: 1rem;
+	border: 1px solid black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.chat-message-box {
+	min-height: 20rem;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.chat-message-box__messages {
+	padding: 1rem;
 }
-
-.App-link {
-  color: #61dafb;
+.chat-message-box__messages p {
+	margin: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-message-box form {
+	padding: 0;
+	display: flex;
+	gap: 0.2rem;
+}
+.chat-message-box form > * {
+	height: 1.5rem;
+}
+.chat-message-box form input {
+	width: 100%;
+}
+.chat-message-box form button {
+	width: 5rem;
+	height: 1.8rem;
 }
