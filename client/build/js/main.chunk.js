@@ -101,7 +101,7 @@ function App() {
   const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [inputText, setInputText] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    renderMessages();
+    getMessages();
     getUsers();
   }, []);
 
@@ -109,26 +109,25 @@ function App() {
     setInputText(e.target.value);
   };
 
-  const renderMessages = async () => {
-    const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('api/messages');
-    setMessages(response.data);
-  };
-
   const addMessage = () => {
     if (inputText.trim() !== '') {
       let newMsg = {
-        username: 'You',
         text: inputText
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('api/messages', newMsg);
     }
   };
 
+  const getMessages = async () => {
+    const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('api/messages');
+    setMessages(response.data);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     addMessage();
     setInputText('');
-    renderMessages();
+    getMessages();
   };
 
   const getUsers = async () => {
@@ -174,7 +173,7 @@ function App() {
           children: messages.map(msg => {
             return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("p", {
               children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("strong", {
-                children: [msg.username, ":"]
+                children: [users.find(user => user.id === 1)['username'] + ':', " "]
               }, void 0, true, {
                 fileName: _jsxFileName,
                 lineNumber: 58,
@@ -184,7 +183,8 @@ function App() {
               fileName: _jsxFileName,
               lineNumber: 57,
               columnNumber: 9
-            }, this);
+            }, this) // will use the user_id from messages to find correct user of the message
+            ;
           })
         }, void 0, false, {
           fileName: _jsxFileName,
