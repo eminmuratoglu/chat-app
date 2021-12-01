@@ -8,7 +8,7 @@ function App() {
 	const [ inputText, setInputText ] = useState('');
 
 	useEffect(() => {
-		renderMessages();
+		getMessages();
 		getUsers();
 	}, []);
 
@@ -16,23 +16,23 @@ function App() {
 		setInputText(e.target.value);
 	};
 
-	const renderMessages = async () => {
-		const response = await axios.get('api/messages');
-		setMessages(response.data);
-	};
-
 	const addMessage = () => {
 		if (inputText.trim() !== '') {
-			let newMsg = { username: 'You', text: inputText };
+			let newMsg = { text: inputText };
 			axios.post('api/messages', newMsg);
 		}
+	};
+
+	const getMessages = async () => {
+		const response = await axios.get('api/messages');
+		setMessages(response.data);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addMessage();
 		setInputText('');
-		renderMessages();
+		getMessages();
 	};
 
 	const getUsers = async () => {
@@ -55,8 +55,8 @@ function App() {
 						{messages.map((msg) => {
 							return (
 								<p key={msg.id}>
-									<strong>{msg.username}:</strong> {msg.text}
-								</p>
+									<strong>{users.find((user) => user.id === 1)['username'] + ':'} </strong> {msg.text}
+								</p> // will use the user_id from messages to find correct user of the message
 							);
 						})}
 					</div>
