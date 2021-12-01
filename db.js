@@ -25,4 +25,6 @@ module.exports = pool;
 // 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 // 	PRIMARY KEY(id),
 // 	FOREIGN KEY (user_id) REFERENCES users(id)
+// 		ON UPDATE CASCADE
+// 		ON DELETE CASCADE
 // )

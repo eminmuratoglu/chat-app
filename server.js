@@ -18,19 +18,10 @@ app.get('/api/messages', async (req, res) => {
 	}
 });
 
-// ISSUE TO FIX
-// insert or update on table "messages" violates foreign key constraint "messages_user_id_fkey"
-
-// ON DELETE CASCADE
-// ON UPDATE CASCADE    --> These two commands will fix the issue :))
-
 app.post('/api/messages', async (req, res) => {
 	try {
-		const { username, text } = req.body;
-		const newMsg = await pool.query('INSERT INTO messages (username, text) VALUES($1, $2) RETURNING *', [
-			username,
-			text
-		]);
+		const { text } = req.body;
+		const newMsg = await pool.query('INSERT INTO messages (text) VALUES($1) RETURNING *', [ text ]);
 		res.send(newMsg.rows[0]);
 	} catch (err) {
 		console.error(err.message);
@@ -46,8 +37,8 @@ app.get('/api/users', async (req, res) => {
 });
 app.post('/api/users', async (req, res) => {
 	try {
-		const { username } = req.body;
-		const newUser = await pool.query('INSERT INTO users (username) VALUES($1) RETURNING *', [ username ]);
+		const { text } = req.body;
+		const newUser = await pool.query('INSERT INTO users (text) VALUES($1) RETURNING *', [ text ]);
 		res.send(newUser.rows[0]);
 	} catch (err) {
 		console.error(err.message);
