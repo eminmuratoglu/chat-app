@@ -13,17 +13,16 @@ module.exports = pool;
 ///////////////
 
 // CREATE TABLE users(
-// 	id SERIAL NOT NULL PRIMARY KEY,
-// 	username VARCHAR(25) NOT NULL,
-// 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+// 	id SERIAL PRIMARY KEY,
+// 	username VARCHAR(50) NOT NULL,
+// 	created_at TIMESTAMPTZ DEFAULT NOW()
 // )
 
 // CREATE TABLE messages(
-// 	id SERIAL NOT NULL,
+// 	id SERIAL PRIMARY KEY,
 // 	user_id SERIAL,
-// 	text VARCHAR(250),
+// 	text VARCHAR(250) NOT NULL,
 // 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-// 	PRIMARY KEY(id),
 // 	FOREIGN KEY (user_id) REFERENCES users(id)
 // 		ON UPDATE CASCADE
 // 		ON DELETE CASCADE
