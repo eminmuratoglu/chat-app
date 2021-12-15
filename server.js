@@ -29,7 +29,7 @@ app.post('/api/messages', async (req, res) => {
 		console.error(err.message);
 	}
 });
-// While creating the message, I need to specify user_id of which user it belongs to (which user logged in)
+// While creating the message, I need to specify user_id of (which) user it belongs to (which user logged in)
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
