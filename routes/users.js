@@ -5,7 +5,7 @@ const { authenticateToken } = require('../middleware/authorization');
 
 const router = express.Router();
 
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', authenticateToken, async (_req, res) => {
 	try {
 		const allUsers = await pool.query('SELECT * FROM users');
 		res.json(allUsers.rows);
