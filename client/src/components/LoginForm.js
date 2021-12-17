@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import './LoginForm.css';
 
@@ -16,12 +17,22 @@ function LoginForm(props) {
 		[ user ]
 	);
 
-	const handleSubmit = async (e) => {
+	// const handleChange = e => {
+	//   if (e.currentTarget.name === 'username') {
+	//     setUsername(e.currentTarget.value);
+	//   } else {
+	//     setPassword(e.currentTarget.value);
+	//   }
+	// };
+
+	const handleLogin = async (e) => {
 		e.preventDefault();
 		try {
 			const response = await axios.post('/api/auth/login', { username, password });
 			setUser(response.data);
 			console.log(response.data);
+			setUsername('');
+			setPassword('');
 		} catch (err) {
 			console.log(err);
 		}
@@ -30,7 +41,7 @@ function LoginForm(props) {
 	return (
 		<div className="loginContainer">
 			<h2>Login</h2>
-			<form className="loginForm" onSubmit={handleSubmit}>
+			<form className="loginForm" onSubmit={handleLogin}>
 				<label>Username</label>
 				<input
 					type="text"
@@ -48,6 +59,12 @@ function LoginForm(props) {
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 				<button type="submit">Login</button>
+				<p>
+					Don't have an account yet?{' '}
+					<NavLink exact to="/register">
+						Register
+					</NavLink>
+				</p>
 			</form>
 		</div>
 	);
