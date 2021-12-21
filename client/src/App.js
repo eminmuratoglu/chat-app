@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import RegistrationForm from './components/RegistrationForm';
-import LoginForm from './components/LoginForm';
+import { Redirect } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import Routes from './components/Routes';
 import axios from 'axios';
+import { io } from 'socket.io-client';
 import './App.css';
 
 function App() {
@@ -10,25 +12,42 @@ function App() {
 	const [ user, setUser ] = useState(null);
 	const [ inputText, setInputText ] = useState('');
 
-	useEffect(() => {
-		getMessages();
-		getUsers();
-	}, []);
+	const [ secret, setSecret ] = useState('');
+
+	useEffect(
+		() => {
+			getUsers();
+			getMessages();
+		},
+		[ user ]
+	);
+
+	const axiosJWT = axios.create();
 
 	const handleChange = (e) => {
 		setInputText(e.target.value);
 	};
 
 	const addMessage = () => {
-		if (inputText.trim() !== '') {
-			let newMsg = { text: inputText };
-			axios.post('api/messages', newMsg);
+		if (user && inputText.trim()) {
+			let newMsg = { text: inputText, user_id: user.id };
+			axiosJWT.post('api/messages', newMsg, {
+				headers: {
+					authorization: `Bearer ${user.accessToken}`
+				}
+			});
 		}
 	};
 
 	const getMessages = async () => {
-		const response = await axios.get('api/messages');
-		setMessages(response.data);
+		if (user) {
+			const response = await axiosJWT.get('api/messages', {
+				headers: {
+					authorization: `Bearer ${user.accessToken}`
+				}
+			});
+			setMessages(response.data);
+		}
 	};
 
 	const handleSubmit = (e) => {
@@ -39,48 +58,93 @@ function App() {
 	};
 
 	const getUsers = async () => {
-		const response = await axios.get('api/users');
-		setUsers(response.data);
+		try {
+			if (user) {
+				const response = await axiosJWT.get('api/users', {
+					headers: {
+						authorization: `Bearer ${user.accessToken}`
+					}
+				});
+				setUsers(response.data);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	////////////////////////////////////
 	const handleUser = (user) => {
 		setUser(user);
 	};
 
-	// const refreshToken = async () => {
-	// 	try {
-	// 		const response = axios.get('/api/auth/refresh_token')
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 	}
-	// }
+	const logout = () => {
+		deleteToken();
+		setUser(null);
+	};
+
+	const deleteToken = async () => {
+		const response = await axios.delete('/api/auth/logout');
+		console.log(response.data.message);
+		return response;
+	};
 
 	const fetchRefreshToken = async () => {
-		const res = await fetch('api/auth/refresh_token', {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			mode: 'cors',
-			credentials: 'include'
-		});
-		const jsonResponse = await res.json();
-		// return jsonResponse;
-		setUser({
-			...user,
-			accessToken: jsonResponse.accessToken,
-			refreshToken: jsonResponse.refreshToken
-		});
+		try {
+			const response = await axios.get('/api/auth/refresh_token', {
+				mode: 'cors',
+				credentials: 'include'
+			});
+			setUser({
+				...user,
+				accessToken: response.data.accessToken,
+				refreshToken: response.data.refreshToken
+			});
+			return response.data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	axiosJWT.interceptors.request.use(
+		async (config) => {
+			let currentDate = new Date();
+			const decodedToken = jwt_decode(user.accessToken);
+			if (decodedToken.exp * 1000 < currentDate.getTime()) {
+				const data = await fetchRefreshToken();
+				config.headers['authorization'] = `Bearer ${data.accessToken}`;
+			}
+			return config;
+		},
+		(error) => {
+			return Promise.reject(error);
+		}
+	);
+
+	const getSecretData = async () => {
+		try {
+			const res = await axiosJWT.get('/secret', {
+				headers: {
+					authorization: `Bearer ${user.accessToken}`
+				}
+			});
+			setSecret(res.data);
+			console.log(user);
+		} catch (error) {
+			setSecret('not allowed');
+			console.log('error occured :(', error);
+			console.log(user);
+		}
 	};
 
 	return (
 		<div className="App">
 			<h1>chat app</h1>
-
+			<button onClick={getSecretData}>Get Secret Data</button>
+			<p>{secret}</p>
 			{user ? (
 				<div className="chat_container">
 					<div className="chat-users">
+						<h4>Welcome, {user.username}</h4>
 						<h3>Users</h3>
-						<p>Welcome, {user.username}</p>
 						{users.map((user) => {
 							return <p key={user.id}>{user.username}</p>;
 						})}
@@ -88,11 +152,12 @@ function App() {
 					<div className="chat-message-box">
 						<div className="chat-message-box__messages">
 							{messages.map((msg) => {
+								let currentUser = users.find((user) => user.id === msg.user_id);
+								let userName = currentUser ? currentUser.username : 'user';
 								return (
 									<p key={msg.id}>
-										{/* <strong>{users.find((user) => user.id === 1)['username'] + ':'} </strong> {msg.text} */}
-										<strong>You: </strong> {msg.text}
-									</p> // will use the user_id from messages to find correct user of the message
+										<strong>{userName}</strong>: {msg.text}
+									</p>
 								);
 							})}
 						</div>
@@ -101,12 +166,12 @@ function App() {
 							<button type="submit">Send</button>
 						</form>
 					</div>
-					<button>Logout</button>
+					<button onClick={logout}>Logout</button>
 				</div>
 			) : (
-				<LoginForm handleUser={handleUser} />
-				/* <RegistrationForm /> */
+				<Redirect exact to="/login" /> //
 			)}
+			<Routes handleUser={handleUser} />
 		</div>
 	);
 }
