@@ -47,7 +47,6 @@ router.get('/refresh_token', (req, res) => {
 router.delete('/logout', (_req, res) => {
 	try {
 		res.clearCookie('refresh_token');
-		// res.redirect('/');
 		return res.status(200).json({ message: 'You logged out successfully' });
 	} catch (error) {
 		res.status(401).json({ error: error.message });
