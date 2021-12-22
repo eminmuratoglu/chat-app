@@ -1,7 +1,5 @@
 {
   "files": {
-    "js/0.chunk.js": "/js/0.chunk.js",
-    "js/0.chunk.js.map": "/js/0.chunk.js.map",
     "main.js": "/js/main.chunk.js",
     "main.js.map": "/js/main.chunk.js.map",
     "runtime-main.js": "/js/bundle.js",

@@ -128,15 +128,19 @@ module.exports = content.locals || {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_RegistrationForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/RegistrationForm */ "./src/components/RegistrationForm.js");
-/* harmony import */ var _components_LoginForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/LoginForm */ "./src/components/LoginForm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App.css */ "./src/App.css");
-/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_App_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/build/jwt-decode.esm.js");
+/* harmony import */ var _components_Routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Routes */ "./src/components/Routes.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
+/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./App.css */ "./src/App.css");
+/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_App_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__);
 var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/App.js";
+
+
 
 
 
@@ -149,180 +153,279 @@ function App() {
   const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [user, setUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
   const [inputText, setInputText] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [secret, setSecret] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''); // const [ socket, setSocket ] = useState(null);
+
+  const socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_5__["io"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    getMessages();
+    socket.on('chat-message', data => {
+      console.log(data);
+    });
+    return () => {
+      socket.emit('disconnect');
+      socket.off();
+    };
+  }, []); // useEffect(
+  // 	() => {
+  // 		if (socket) {
+  // 			socket.on('welcome', (message) => {
+  // 				console.log(message);
+  // 			});
+  // 		}
+  // 	},
+  // 	[ socket ]
+  // );
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getUsers();
-  }, []);
+    getMessages();
+  }, [user]);
+  const axiosJWT = axios__WEBPACK_IMPORTED_MODULE_4___default.a.create();
 
   const handleChange = e => {
     setInputText(e.target.value);
   };
 
   const addMessage = () => {
-    if (inputText.trim() !== '') {
+    if (user && inputText.trim()) {
       let newMsg = {
-        text: inputText
+        text: inputText,
+        user_id: user.id
       };
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/messages', newMsg);
+      axiosJWT.post('api/messages', newMsg, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        }
+      });
     }
   };
 
   const getMessages = async () => {
-    const response = await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/messages');
-    setMessages(response.data);
+    if (user) {
+      const response = await axiosJWT.get('api/messages', {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        }
+      });
+      setMessages(response.data);
+    }
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
-    addMessage();
-    setInputText('');
-    getMessages();
+    e.preventDefault(); // addMessage();
+
+    socket.emit('send-message', inputText);
+    setInputText(''); // getMessages();
   };
 
   const getUsers = async () => {
-    const response = await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/users');
-    setUsers(response.data);
+    try {
+      if (user) {
+        const response = await axiosJWT.get('api/users', {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`
+          }
+        });
+        setUsers(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }; ////////////////////////////////////
 
 
   const handleUser = user => {
     setUser(user);
-  }; // const refreshToken = async () => {
-  // 	try {
-  // 		const response = axios.get('/api/auth/refresh_token')
-  // 	} catch (error) {
-  // 		console.log(error)
-  // 	}
-  // }
-
-
-  const fetchRefreshToken = async () => {
-    const res = await fetch('api/auth/refresh_token', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      credentials: 'include'
-    });
-    const jsonResponse = await res.json(); // return jsonResponse;
-
-    setUser({ ...user,
-      accessToken: jsonResponse.accessToken,
-      refreshToken: jsonResponse.refreshToken
-    });
   };
 
-  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("div", {
+  const logout = () => {
+    deleteToken();
+    setUser(null);
+  };
+
+  const deleteToken = async () => {
+    const response = await axios__WEBPACK_IMPORTED_MODULE_4___default.a.delete('/api/auth/logout');
+    console.log(response.data.message);
+    return response;
+  };
+
+  const fetchRefreshToken = async () => {
+    try {
+      const response = await axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/auth/refresh_token', {
+        mode: 'cors',
+        credentials: 'include'
+      });
+      setUser({ ...user,
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  axiosJWT.interceptors.request.use(async config => {
+    let currentDate = new Date();
+    const decodedToken = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_2__["default"])(user.accessToken);
+
+    if (decodedToken.exp * 1000 < currentDate.getTime()) {
+      const data = await fetchRefreshToken();
+      config.headers['authorization'] = `Bearer ${data.accessToken}`;
+    }
+
+    return config;
+  }, error => {
+    return Promise.reject(error);
+  });
+
+  const getSecretData = async () => {
+    try {
+      const res = await axiosJWT.get('/secret', {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        }
+      });
+      setSecret(res.data);
+      console.log(user);
+    } catch (error) {
+      setSecret('not allowed');
+      console.log('error occured :(', error);
+      console.log(user);
+    }
+  };
+
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
     className: "App",
-    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("h1", {
+    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h1", {
       children: "chat app"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 77,
+      lineNumber: 167,
       columnNumber: 4
-    }, this), user ? /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("div", {
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
+      onClick: getSecretData,
+      children: "Get Secret Data"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 168,
+      columnNumber: 4
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
+      children: secret
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 169,
+      columnNumber: 4
+    }, this), user ? /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
       className: "chat_container",
-      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("div", {
+      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
         className: "chat-users",
-        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("h3", {
-          children: "Users"
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 82,
-          columnNumber: 7
-        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("p", {
+        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h4", {
           children: ["Welcome, ", user.username]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 83,
+          lineNumber: 173,
+          columnNumber: 7
+        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h3", {
+          children: "Users"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 174,
           columnNumber: 7
         }, this), users.map(user => {
-          return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("p", {
+          return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
             children: user.username
           }, user.id, false, {
             fileName: _jsxFileName,
-            lineNumber: 85,
+            lineNumber: 176,
             columnNumber: 15
           }, this);
         })]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 81,
+        lineNumber: 172,
         columnNumber: 6
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("div", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
         className: "chat-message-box",
-        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("div", {
+        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
           className: "chat-message-box__messages",
           children: messages.map(msg => {
-            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("p", {
-              children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("strong", {
-                children: "You: "
+            let currentUser = users.find(user => user.id === msg.user_id);
+            let userName = currentUser ? currentUser.username : 'user';
+            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
+              children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("strong", {
+                children: userName
               }, void 0, false, {
                 fileName: _jsxFileName,
-                lineNumber: 94,
+                lineNumber: 186,
                 columnNumber: 11
-              }, this), " ", msg.text]
+              }, this), ": ", msg.text]
             }, msg.id, true, {
               fileName: _jsxFileName,
-              lineNumber: 92,
+              lineNumber: 185,
               columnNumber: 10
-            }, this) // will use the user_id from messages to find correct user of the message
-            ;
+            }, this);
           })
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 89,
+          lineNumber: 180,
           columnNumber: 7
-        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("form", {
+        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("form", {
           onSubmit: handleSubmit,
-          children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("input", {
+          children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("input", {
             type: "text",
             value: inputText,
             onChange: handleChange
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 100,
+            lineNumber: 192,
             columnNumber: 8
-          }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("button", {
+          }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
             type: "submit",
             children: "Send"
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 101,
+            lineNumber: 193,
             columnNumber: 8
           }, this)]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 99,
+          lineNumber: 191,
           columnNumber: 7
         }, this)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 88,
+        lineNumber: 179,
         columnNumber: 6
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])("button", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
+        onClick: logout,
         children: "Logout"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 104,
+        lineNumber: 196,
         columnNumber: 6
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 80,
+      lineNumber: 171,
       columnNumber: 5
-    }, this) : /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])(_components_LoginForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }, this) : /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      exact: true,
+      to: "/login"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 199,
+      columnNumber: 5
+    }, this) //
+    , /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(_components_Routes__WEBPACK_IMPORTED_MODULE_3__["default"], {
       handleUser: handleUser
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 107,
-      columnNumber: 5
-    }, this)
-    /* <RegistrationForm /> */
-    ]
+      lineNumber: 201,
+      columnNumber: 4
+    }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 76,
+    lineNumber: 166,
     columnNumber: 3
   }, this);
 }
@@ -371,13 +474,15 @@ module.exports = content.locals || {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _LoginForm_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LoginForm.css */ "./src/components/LoginForm.css");
-/* harmony import */ var _LoginForm_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_LoginForm_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _LoginForm_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LoginForm.css */ "./src/components/LoginForm.css");
+/* harmony import */ var _LoginForm_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_LoginForm_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/components/LoginForm.js";
+
 
 
 
@@ -391,41 +496,49 @@ function LoginForm(props) {
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     props.handleUser(user);
-  }, [user]);
+  }, [user]); // const handleChange = e => {
+  //   if (e.currentTarget.name === 'username') {
+  //     setUsername(e.currentTarget.value);
+  //   } else {
+  //     setPassword(e.currentTarget.value);
+  //   }
+  // };
 
-  const handleSubmit = async e => {
+  const handleLogin = async e => {
     e.preventDefault();
 
     try {
-      const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/auth/login', {
+      const response = await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/auth/login', {
         username,
         password
       });
       setUser(response.data);
       console.log(response.data);
+      setUsername('');
+      setPassword('');
     } catch (err) {
       console.log(err);
     }
   };
 
-  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("div", {
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("div", {
     className: "loginContainer",
-    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("h2", {
+    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("h2", {
       children: "Login"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 32,
+      lineNumber: 43,
       columnNumber: 4
-    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("form", {
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("form", {
       className: "loginForm",
-      onSubmit: handleSubmit,
-      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("label", {
+      onSubmit: handleLogin,
+      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("label", {
         children: "Username"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 34,
+        lineNumber: 45,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("input", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("input", {
         type: "text",
         placeholder: "username",
         name: "username",
@@ -433,15 +546,15 @@ function LoginForm(props) {
         onChange: e => setUsername(e.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 35,
+        lineNumber: 46,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("label", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("label", {
         children: "Password"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 42,
+        lineNumber: 53,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("input", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("input", {
         type: "password",
         placeholder: "password",
         name: "username",
@@ -449,24 +562,38 @@ function LoginForm(props) {
         onChange: e => setPassword(e.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 43,
+        lineNumber: 54,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("button", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("button", {
         type: "submit",
         children: "Login"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 50,
+        lineNumber: 61,
+        columnNumber: 5
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("p", {
+        children: ["Don't have an account yet?", ' ', /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+          exact: true,
+          to: "/register",
+          children: "Register"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 64,
+          columnNumber: 6
+        }, this)]
+      }, void 0, true, {
+        fileName: _jsxFileName,
+        lineNumber: 62,
         columnNumber: 5
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 33,
+      lineNumber: 44,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 31,
+    lineNumber: 42,
     columnNumber: 3
   }, this);
 }
@@ -515,78 +642,180 @@ module.exports = content.locals || {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _RegistrationForm_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegistrationForm.css */ "./src/components/RegistrationForm.css");
-/* harmony import */ var _RegistrationForm_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_RegistrationForm_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _RegistrationForm_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RegistrationForm.css */ "./src/components/RegistrationForm.css");
+/* harmony import */ var _RegistrationForm_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_RegistrationForm_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/components/RegistrationForm.js";
 
 
 
 
 
+
 function RegistrationForm() {
-  const handleSubmit = async e => {
+  const [username, setUsername] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [password, setPassword] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+
+  const handleRegister = async e => {
     e.preventDefault();
+
+    try {
+      const res = await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/users', {
+        username,
+        password
+      });
+      console.log(res.data);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("div", {
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("div", {
     className: "registrationContainer",
-    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("h2", {
+    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("h2", {
       children: "Registration"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 12,
+      lineNumber: 23,
       columnNumber: 4
-    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("form", {
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("form", {
       className: "registrationForm",
-      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("label", {
+      onSubmit: handleRegister,
+      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("label", {
         children: "Username"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 14,
+        lineNumber: 25,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("input", {
-        type: "text"
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("input", {
+        type: "text",
+        placeholder: "username",
+        name: "username",
+        value: username,
+        onChange: e => setUsername(e.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 15,
+        lineNumber: 26,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("label", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("label", {
         children: "Password"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 16,
+        lineNumber: 33,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("input", {
-        type: "password"
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("input", {
+        type: "password",
+        placeholder: "password",
+        name: "username",
+        value: password,
+        onChange: e => setPassword(e.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 17,
+        lineNumber: 34,
         columnNumber: 5
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("button", {
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("button", {
         type: "submit",
         children: "Register"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 18,
+        lineNumber: 41,
+        columnNumber: 5
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])("p", {
+        children: ["Already have an account?", ' ', /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+          exact: true,
+          to: "/login",
+          children: "Log in"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 44,
+          columnNumber: 6
+        }, this)]
+      }, void 0, true, {
+        fileName: _jsxFileName,
+        lineNumber: 42,
         columnNumber: 5
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 13,
+      lineNumber: 24,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 11,
+    lineNumber: 22,
     columnNumber: 3
   }, this);
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (RegistrationForm);
+
+/***/ }),
+
+/***/ "./src/components/Routes.js":
+/*!**********************************!*\
+  !*** ./src/components/Routes.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _RegistrationForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegistrationForm */ "./src/components/RegistrationForm.js");
+/* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LoginForm */ "./src/components/LoginForm.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__);
+var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/components/Routes.js";
+
+
+
+
+
+
+function Routes(props) {
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], {
+    children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      exact: true,
+      path: "/register",
+      render: () => /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(_RegistrationForm__WEBPACK_IMPORTED_MODULE_2__["default"], {}, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 9,
+        columnNumber: 48
+      }, this)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 4
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      exact: true,
+      path: "/login",
+      render: () => /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__["jsxDEV"])(_LoginForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        handleUser: props.handleUser
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 10,
+        columnNumber: 45
+      }, this)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 4
+    }, this)]
+  }, void 0, true, {
+    fileName: _jsxFileName,
+    lineNumber: 8,
+    columnNumber: 3
+  }, this);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Routes);
 
 /***/ }),
 
@@ -632,10 +861,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App */ "./src/App.js");
-/* harmony import */ var _reportWebVitals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reportWebVitals */ "./src/reportWebVitals.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App */ "./src/App.js");
 /* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
 /* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/index.js";
@@ -645,53 +874,17 @@ var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/clie
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.StrictMode, {
-  children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])(_App__WEBPACK_IMPORTED_MODULE_3__["default"], {}, void 0, false, {
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], {
+  children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__["jsxDEV"])(_App__WEBPACK_IMPORTED_MODULE_4__["default"], {}, void 0, false, {
     fileName: _jsxFileName,
     lineNumber: 9,
-    columnNumber: 5
+    columnNumber: 3
   }, undefined)
 }, void 0, false, {
   fileName: _jsxFileName,
   lineNumber: 8,
-  columnNumber: 3
-}, undefined), document.getElementById('root')); // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-
-Object(_reportWebVitals__WEBPACK_IMPORTED_MODULE_4__["default"])();
-
-/***/ }),
-
-/***/ "./src/reportWebVitals.js":
-/*!********************************!*\
-  !*** ./src/reportWebVitals.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const reportWebVitals = onPerfEntry => {
-  if (onPerfEntry && onPerfEntry instanceof Function) {
-    __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! web-vitals */ "./node_modules/web-vitals/dist/web-vitals.js")).then(_ref => {
-      let {
-        getCLS,
-        getFID,
-        getFCP,
-        getLCP,
-        getTTFB
-      } = _ref;
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
-    });
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (reportWebVitals);
+  columnNumber: 2
+}, undefined), document.getElementById('root'));
 
 /***/ }),
 
