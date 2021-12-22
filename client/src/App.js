@@ -14,6 +14,30 @@ function App() {
 
 	const [ secret, setSecret ] = useState('');
 
+	// const [ socket, setSocket ] = useState(null);
+	const socket = io();
+
+	useEffect(() => {
+		socket.on('chat-message', (data) => {
+			console.log(data);
+		});
+		return () => {
+			socket.emit('disconnect');
+			socket.off();
+		};
+	}, []);
+
+	// useEffect(
+	// 	() => {
+	// 		if (socket) {
+	// 			socket.on('welcome', (message) => {
+	// 				console.log(message);
+	// 			});
+	// 		}
+	// 	},
+	// 	[ socket ]
+	// );
+
 	useEffect(
 		() => {
 			getUsers();
@@ -52,9 +76,12 @@ function App() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		addMessage();
+		// addMessage();
+
+		socket.emit('send-message', inputText);
+
 		setInputText('');
-		getMessages();
+		// getMessages();
 	};
 
 	const getUsers = async () => {
