@@ -42,6 +42,7 @@ io.on('connection', (socket) => {
 		console.log('user disconnected');
 	});
 });
+
 // socket.emit('message', "this is a test"); //sending to sender-client only
 // socket.broadcast.emit('message', "this is a test"); //sending to all clients except sender
 // io.emit('message', "this is a test"); //sending to all clients, include sender
