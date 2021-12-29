@@ -38,6 +38,7 @@ function App() {
 	// 	[ socket ]
 	// );
 
+	//render users/messages only after user logs in
 	useEffect(
 		() => {
 			getUsers();
