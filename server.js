@@ -14,6 +14,8 @@ const messagesRouter = require('./routes/messages');
 const authRouter = require('./routes/auth');
 const { authenticateToken } = require('./middleware/authorization');
 
+app.set('socketio', io);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -27,3 +27,5 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
+
+// USER ID GIBI USERNAME I DE MESSAGES TABLE INA KOYSAK? AHM/MAHR NASIL YAPMIS?
