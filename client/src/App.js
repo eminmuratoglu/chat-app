@@ -14,34 +14,29 @@ function App() {
 
 	const [ secret, setSecret ] = useState('');
 
-	// const [ socket, setSocket ] = useState(null);
 	const socket = io();
 
+	useEffect(
+		() => {
+			console.log(messages);
+		},
+		[ messages ]
+	);
+
 	useEffect(() => {
-		socket.on('chat-message', (data) => {
-			console.log(data);
+		// getUsers();
+		getMessages();
+		socket.on('getMessage', (newMsg) => {
+			setMessages((messages) => [ ...messages, newMsg ]);
 		});
+
 		return () => {
-			socket.emit('disconnect');
+			// socket.emit('disconnect');
 			socket.off();
 		};
 	}, []);
 
-	// useEffect(
-	// 	() => {
-	// 		if (socket) {
-	// 			socket.on('welcome', (message) => {
-	// 				console.log(message);
-	// 			});
-	// 		}
-	// 	},
-	// 	[ socket ]
-	// );
-
-<<<<<<< HEAD
-	//render users/messages only after user logs in
-=======
->>>>>>> 0fb5432dcc1afd78533f97c19f55706fd8c0be63
+	// render users/messages only after user logs in
 	useEffect(
 		() => {
 			getUsers();
@@ -56,16 +51,16 @@ function App() {
 		setInputText(e.target.value);
 	};
 
-	const addMessage = () => {
-		if (user && inputText.trim()) {
-			let newMsg = { text: inputText, user_id: user.id };
-			axiosJWT.post('api/messages', newMsg, {
-				headers: {
-					authorization: `Bearer ${user.accessToken}`
-				}
-			});
-		}
-	};
+	// const addMessage = () => {
+	// 	if (user && inputText.trim()) {
+	// 		let newMsg = { text: inputText, user_id: user.id };
+	// 		axiosJWT.post('api/messages', newMsg, {
+	// 			headers: {
+	// 				authorization: `Bearer ${user.accessToken}`
+	// 			}
+	// 		});
+	// 	}
+	// };
 
 	const getMessages = async () => {
 		if (user) {
@@ -81,9 +76,15 @@ function App() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// addMessage();
-
-		socket.emit('send-message', inputText);
-
+		if (user && inputText.trim()) {
+			let newMsg = { text: inputText, user_id: user.id, username: user.username };
+			axiosJWT.post('api/messages', newMsg, {
+				headers: {
+					authorization: `Bearer ${user.accessToken}`
+				}
+			});
+			socket.emit('sendMessage', newMsg);
+		}
 		setInputText('');
 		// getMessages();
 	};
@@ -182,15 +183,21 @@ function App() {
 					</div>
 					<div className="chat-message-box">
 						<div className="chat-message-box__messages">
-							{messages.map((msg) => {
-								let currentUser = users.find((user) => user.id === msg.user_id);
-								let userName = currentUser ? currentUser.username : 'user';
-								return (
-									<p key={msg.id}>
-										<strong>{userName}</strong>: {msg.text}
-									</p>
-								);
-							})}
+							{messages &&
+								messages.map((msg, i) => {
+									let currentUser = users.find((user) => user.id === msg.user_id);
+									let userName = currentUser ? currentUser.username : '!';
+									// return (
+									// 	<p key={msg.id}>
+									// 		<strong>{msg.username}</strong>: {msg.text}
+									// 	</p>
+									// );
+									return (
+										<p key={msg.id ? msg.id : `${user.username}-${i}`}>
+											<strong>{msg.username ? msg.username : userName}</strong>: {msg.text}
+										</p>
+									);
+								})}
 						</div>
 						<form onSubmit={handleSubmit}>
 							<input type="text" value={inputText} onChange={handleChange} />

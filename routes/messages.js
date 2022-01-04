@@ -15,11 +15,15 @@ router.get('/', authenticateToken, async (_req, res) => {
 
 router.post('/', authenticateToken, async (req, res) => {
 	try {
-		const { text, user_id } = req.body;
+		const { username, text, user_id } = req.body;
+		const io = req.app.get('socketio');
 		const newMsg = await pool.query('INSERT INTO messages (text, user_id) VALUES($1, $2) RETURNING *', [
 			text,
 			user_id
 		]);
+
+		io.emit('getMessage', { username, text });
+
 		res.send(newMsg.rows[0]);
 	} catch (err) {
 		console.error(err.message);
