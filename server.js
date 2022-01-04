@@ -32,18 +32,18 @@ app.use('/api/users', usersRouter);
 app.use('/api/messages', messagesRouter);
 app.use('/api/auth', authRouter);
 
-io.on('connection', (socket) => {
-	// console.log('a user connected');
-	// io.emit('chat-message', 'hi, this is socket server');
+// io.on('connection', (socket) => {
+// 	// console.log('a user connected');
+// 	// io.emit('chat-message', 'hi, this is socket server');
 
-	socket.on('send-message', (msg) => {
-		io.emit('chat-message', msg);
-	});
+// 	socket.on('sendMessage', ({ username, text }) => {
+// 		io.emit('getMessage', { username, text });
+// 	});
 
-	socket.on('disconnect', () => {
-		console.log('user disconnected');
-	});
-});
+// 	socket.on('disconnect', () => {
+// 		console.log('user disconnected');
+// 	});
+// });
 
 // socket.emit('message', "this is a test"); //sending to sender-client only
 // socket.broadcast.emit('message', "this is a test"); //sending to all clients except sender
