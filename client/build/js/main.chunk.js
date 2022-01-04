@@ -153,27 +153,22 @@ function App() {
   const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [user, setUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
   const [inputText, setInputText] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
-  const [secret, setSecret] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''); // const [ socket, setSocket ] = useState(null);
-
+  const [secret, setSecret] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
   const socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_5__["io"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    socket.on('chat-message', data => {
-      console.log(data);
+    console.log(messages);
+  }, [messages]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    // getUsers();
+    getMessages();
+    socket.on('getMessage', newMsg => {
+      setMessages(messages => [...messages, newMsg]);
     });
     return () => {
-      socket.emit('disconnect');
+      // socket.emit('disconnect');
       socket.off();
     };
-  }, []); // useEffect(
-  // 	() => {
-  // 		if (socket) {
-  // 			socket.on('welcome', (message) => {
-  // 				console.log(message);
-  // 			});
-  // 		}
-  // 	},
-  // 	[ socket ]
-  // );
+  }, []); // render users/messages only after user logs in
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getUsers();
@@ -183,21 +178,17 @@ function App() {
 
   const handleChange = e => {
     setInputText(e.target.value);
-  };
+  }; // const addMessage = () => {
+  // 	if (user && inputText.trim()) {
+  // 		let newMsg = { text: inputText, user_id: user.id };
+  // 		axiosJWT.post('api/messages', newMsg, {
+  // 			headers: {
+  // 				authorization: `Bearer ${user.accessToken}`
+  // 			}
+  // 		});
+  // 	}
+  // };
 
-  const addMessage = () => {
-    if (user && inputText.trim()) {
-      let newMsg = {
-        text: inputText,
-        user_id: user.id
-      };
-      axiosJWT.post('api/messages', newMsg, {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`
-        }
-      });
-    }
-  };
 
   const getMessages = async () => {
     if (user) {
@@ -213,7 +204,20 @@ function App() {
   const handleSubmit = e => {
     e.preventDefault(); // addMessage();
 
-    socket.emit('send-message', inputText);
+    if (user && inputText.trim()) {
+      let newMsg = {
+        text: inputText,
+        user_id: user.id,
+        username: user.username
+      };
+      axiosJWT.post('api/messages', newMsg, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        }
+      });
+      socket.emit('sendMessage', newMsg);
+    }
+
     setInputText(''); // getMessages();
   };
 
@@ -300,20 +304,20 @@ function App() {
       children: "chat app"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 167,
+      lineNumber: 172,
       columnNumber: 4
     }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
       onClick: getSecretData,
       children: "Get Secret Data"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 168,
+      lineNumber: 173,
       columnNumber: 4
     }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
       children: secret
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 169,
+      lineNumber: 174,
       columnNumber: 4
     }, this), user ? /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
       className: "chat_container",
@@ -323,51 +327,56 @@ function App() {
           children: ["Welcome, ", user.username]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 173,
+          lineNumber: 178,
           columnNumber: 7
         }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h3", {
           children: "Users"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 174,
+          lineNumber: 179,
           columnNumber: 7
         }, this), users.map(user => {
           return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
             children: user.username
           }, user.id, false, {
             fileName: _jsxFileName,
-            lineNumber: 176,
+            lineNumber: 181,
             columnNumber: 15
           }, this);
         })]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 172,
+        lineNumber: 177,
         columnNumber: 6
       }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
         className: "chat-message-box",
         children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
           className: "chat-message-box__messages",
-          children: messages.map(msg => {
+          children: messages && messages.map((msg, i) => {
             let currentUser = users.find(user => user.id === msg.user_id);
-            let userName = currentUser ? currentUser.username : 'user';
+            let userName = currentUser ? currentUser.username : '!'; // return (
+            // 	<p key={msg.id}>
+            // 		<strong>{msg.username}</strong>: {msg.text}
+            // 	</p>
+            // );
+
             return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
               children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("strong", {
-                children: userName
+                children: msg.username ? msg.username : userName
               }, void 0, false, {
                 fileName: _jsxFileName,
-                lineNumber: 186,
-                columnNumber: 11
+                lineNumber: 197,
+                columnNumber: 12
               }, this), ": ", msg.text]
-            }, msg.id, true, {
+            }, msg.id ? msg.id : `${user.username}-${i}`, true, {
               fileName: _jsxFileName,
-              lineNumber: 185,
-              columnNumber: 10
+              lineNumber: 196,
+              columnNumber: 11
             }, this);
           })
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 180,
+          lineNumber: 185,
           columnNumber: 7
         }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("form", {
           onSubmit: handleSubmit,
@@ -377,55 +386,55 @@ function App() {
             onChange: handleChange
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 192,
+            lineNumber: 203,
             columnNumber: 8
           }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
             type: "submit",
             children: "Send"
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 193,
+            lineNumber: 204,
             columnNumber: 8
           }, this)]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 191,
+          lineNumber: 202,
           columnNumber: 7
         }, this)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 179,
+        lineNumber: 184,
         columnNumber: 6
       }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
         onClick: logout,
         children: "Logout"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 196,
+        lineNumber: 207,
         columnNumber: 6
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 171,
+      lineNumber: 176,
       columnNumber: 5
     }, this) : /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
       exact: true,
       to: "/login"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 199,
+      lineNumber: 210,
       columnNumber: 5
     }, this) //
     , /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(_components_Routes__WEBPACK_IMPORTED_MODULE_3__["default"], {
       handleUser: handleUser
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 201,
+      lineNumber: 212,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 166,
+    lineNumber: 171,
     columnNumber: 3
   }, this);
 }

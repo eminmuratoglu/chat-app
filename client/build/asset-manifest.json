@@ -5,12 +5,7 @@
     "runtime-main.js": "/js/bundle.js",
     "runtime-main.js.map": "/js/bundle.js.map",
     "vendors~main.js": "/js/vendors~main.chunk.js",
-<<<<<<< HEAD
-    "vendors~main.js.map": "/js/vendors~main.chunk.js.map",
-    "index.html": "/index.html"
-=======
     "vendors~main.js.map": "/js/vendors~main.chunk.js.map"
->>>>>>> 0fb5432dcc1afd78533f97c19f55706fd8c0be63
   },
   "entrypoints": [
     "js/bundle.js",
