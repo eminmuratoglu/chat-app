@@ -27,3 +27,12 @@ module.exports = pool;
 // 		ON UPDATE CASCADE
 // 		ON DELETE CASCADE
 // )
+
+// CREATE TABLE messages(
+// 	id SERIAL NOT NULL,
+// 	user_id SERIAL NOT NULL,
+// 	username VARCHAR(50) NOT NULL,
+// 	text VARCHAR(250),
+// 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+// 	PRIMARY KEY(id)
+// )
