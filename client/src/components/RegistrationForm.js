@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './RegistrationForm.css';
 
-function RegistrationForm() {
+function RegistrationForm({ isLoggedOut }) {
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
+	const [ registrationSuccess, setRegistrationSuccess ] = useState(!isLoggedOut);
 
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		try {
 			const res = await axios.post('/api/users', { username, password });
 			console.log(res.data);
+			setRegistrationSuccess(true);
 			return res;
 		} catch (error) {
 			console.log(error);
@@ -45,6 +47,7 @@ function RegistrationForm() {
 						Log in
 					</NavLink>
 				</p>
+				{registrationSuccess ? <Redirect exact to="/login" /> : null}
 			</form>
 		</div>
 	);

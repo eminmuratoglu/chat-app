@@ -38,7 +38,7 @@ function LoginForm(props) {
 		}
 	};
 
-	return (
+	return !user || props.isLoggedOut ? (
 		<div className="loginContainer">
 			<h2>Login</h2>
 			<form className="loginForm" onSubmit={handleLogin}>
@@ -67,7 +67,7 @@ function LoginForm(props) {
 				</p>
 			</form>
 		</div>
-	);
+	) : null;
 }
 
 export default LoginForm;

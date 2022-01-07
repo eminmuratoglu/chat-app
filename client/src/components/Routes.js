@@ -6,8 +6,12 @@ import LoginForm from './LoginForm';
 function Routes(props) {
 	return (
 		<Switch>
-			<Route exact path="/register" render={() => <RegistrationForm />} />
-			<Route exact path="/login" render={() => <LoginForm handleUser={props.handleUser} />} />
+			<Route exact path="/register" render={() => <RegistrationForm isLoggedOut={props.isLoggedOut} />} />
+			<Route
+				exact
+				path="/login"
+				render={() => <LoginForm isLoggedOut={props.isLoggedOut} handleUser={props.handleUser} />}
+			/>
 		</Switch>
 	);
 }
