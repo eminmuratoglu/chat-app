@@ -17,9 +17,10 @@ router.post('/', authenticateToken, async (req, res) => {
 	try {
 		const { username, text, user_id } = req.body;
 		const io = req.app.get('socketio');
-		const newMsg = await pool.query('INSERT INTO messages (text, user_id) VALUES($1, $2) RETURNING *', [
+		const newMsg = await pool.query('INSERT INTO messages (text, user_id, username) VALUES($1, $2, $3) RETURNING *', [
 			text,
-			user_id
+			user_id,
+			username
 		]);
 
 		io.emit('getMessage', { username, text });
@@ -31,5 +32,3 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
-
-// USER ID GIBI USERNAME I DE MESSAGES TABLE INA KOYSAK? AHM/MAHR NASIL YAPMIS?
