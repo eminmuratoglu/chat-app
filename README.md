@@ -21,4 +21,5 @@ CREATE TABLE messages(<br/>
  text VARCHAR(250),<br/>
  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),<br/>
  PRIMARY KEY(id)<br/>
-)
+) <br/>
+run npm run dev command and start the app on your browser localhost (e.g. localhost:3000)
