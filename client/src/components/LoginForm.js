@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import './LoginForm.css';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import './Forms.css';
+import webChatImg from './images/web-chat.png';
 
 function LoginForm(props) {
 	const [ user, setUser ] = useState(null);
@@ -17,48 +20,41 @@ function LoginForm(props) {
 		[ user ]
 	);
 
-	// const handleChange = e => {
-	//   if (e.currentTarget.name === 'username') {
-	//     setUsername(e.currentTarget.value);
-	//   } else {
-	//     setPassword(e.currentTarget.value);
-	//   }
-	// };
-
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		try {
 			const response = await axios.post('/api/auth/login', { username, password });
 			setUser(response.data);
 			console.log(response.data);
-			setUsername('');
-			setPassword('');
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
 	return !user || props.isLoggedOut ? (
-		<div className="loginContainer">
-			<h2>Login</h2>
-			<form className="loginForm" onSubmit={handleLogin}>
-				<label>Username</label>
-				<input
+		<div className="home__container">
+			<img src={webChatImg} alt="web-chat" />
+			<form className="home__container--form" onSubmit={handleLogin}>
+				<h2 className="home__container--form-header">💬 Login</h2>
+				<TextField
+					required
+					id="outlined"
+					label="Username"
 					type="text"
-					placeholder="username"
-					name="username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
-				<label>Password</label>
-				<input
+				<TextField
+					required
+					id="outlined-password-input"
+					label="Password"
 					type="password"
-					placeholder="password"
-					name="username"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<button type="submit">Login</button>
+				<Button variant="contained" color="primary" type="submit">
+					Login
+				</Button>
 				<p>
 					Don't have an account yet?{' '}
 					<NavLink exact to="/register">
