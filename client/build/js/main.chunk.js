@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".chat_container {\n\tdisplay: grid;\n\tgrid-template-columns: 20rem 40rem;\n\tgrid-template-rows: minmax(20rem, auto);\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n.chat-users h3 {\n\tmargin: 1rem 0 0 0;\n\twidth: 100%;\n}\n.chat-users {\n\tmin-height: 20rem;\n\tpadding-left: 1rem;\n\tborder: 1px solid black;\n}\n\n.chat-message-box {\n\tmin-height: 20rem;\n\tborder: 1px solid black;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n.chat-message-box__messages {\n\tpadding: 1rem;\n}\n.chat-message-box__messages p {\n\tmargin: 0;\n}\n.chat-message-box form {\n\tpadding: 0;\n\tdisplay: flex;\n\tgrid-gap: 0.2rem;\n\tgap: 0.2rem;\n}\n.chat-message-box form > * {\n\theight: 1.5rem;\n}\n.chat-message-box form input {\n\twidth: 100%;\n}\n.chat-message-box form button {\n\twidth: 5rem;\n\theight: 1.8rem;\n}\n", "",{"version":3,"sources":["webpack://src/components/Chat.css"],"names":[],"mappings":"AAAA;CACC,aAAa;CACb,kCAAkC;CAClC,uCAAuC;CACvC,gBAAgB;CAChB,uBAAuB;CACvB,kBAAkB;AACnB;AACA;CACC,kBAAkB;CAClB,WAAW;AACZ;AACA;CACC,iBAAiB;CACjB,kBAAkB;CAClB,uBAAuB;AACxB;;AAEA;CACC,iBAAiB;CACjB,uBAAuB;CACvB,aAAa;CACb,sBAAsB;CACtB,8BAA8B;AAC/B;AACA;CACC,aAAa;AACd;AACA;CACC,SAAS;AACV;AACA;CACC,UAAU;CACV,aAAa;CACb,gBAAW;CAAX,WAAW;AACZ;AACA;CACC,cAAc;AACf;AACA;CACC,WAAW;AACZ;AACA;CACC,WAAW;CACX,cAAc;AACf","sourcesContent":[".chat_container {\n\tdisplay: grid;\n\tgrid-template-columns: 20rem 40rem;\n\tgrid-template-rows: minmax(20rem, auto);\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n.chat-users h3 {\n\tmargin: 1rem 0 0 0;\n\twidth: 100%;\n}\n.chat-users {\n\tmin-height: 20rem;\n\tpadding-left: 1rem;\n\tborder: 1px solid black;\n}\n\n.chat-message-box {\n\tmin-height: 20rem;\n\tborder: 1px solid black;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n.chat-message-box__messages {\n\tpadding: 1rem;\n}\n.chat-message-box__messages p {\n\tmargin: 0;\n}\n.chat-message-box form {\n\tpadding: 0;\n\tdisplay: flex;\n\tgap: 0.2rem;\n}\n.chat-message-box form > * {\n\theight: 1.5rem;\n}\n.chat-message-box form input {\n\twidth: 100%;\n}\n.chat-message-box form button {\n\twidth: 5rem;\n\theight: 1.8rem;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\t/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n/* .chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: 0.2rem;\n\tborder-bottom: 1px solid #fff;\n} */\n.chat-users h3 {\n\ttext-align: center;\n\tmargin: 0 0 1rem;\n\tpadding-bottom: 0.4rem;\n\n\tborder-bottom: 1px solid #fff;\n}\n.chat-users p {\n\tmargin: 0 0 0.5rem;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgrid-gap: 0.3rem;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n", "",{"version":3,"sources":["webpack://src/components/Chat.css"],"names":[],"mappings":"AAAA;CACC,iCAAiC;CACjC,mBAAmB;CACnB,gBAAgB;CAChB,aAAa;CACb,mEAAmE;CACnE,kCAAkC;CAClC,gBAAgB;CAChB,uBAAuB;CACvB,kBAAkB;AACnB;;AAEA;CACC,aAAa;AACd;AACA;;;;;GAKG;AACH;CACC,kBAAkB;CAClB,gBAAgB;CAChB,sBAAsB;;CAEtB,6BAA6B;AAC9B;AACA;CACC,kBAAkB;AACnB;AACA;;CAEC,kBAAkB;CAClB,WAAW;CACX,YAAY;CACZ,wFAAwF;CACxF,qBAAqB;AACtB;;AAEA;CACC,aAAa;CACb,aAAa;CACb,sBAAsB;CACtB,8BAA8B;AAC/B;;AAEA;CACC,kBAAkB;AACnB;AACA;CACC,kBAAkB;CAClB,eAAe;CACf,oCAAoC;CACpC,sBAAsB;CACtB,uBAAuB;AACxB;;AAEA;CACC,aAAa;CACb,8BAA8B;CAC9B,gBAAW;CAAX,WAAW;AACZ;AACA;CACC,WAAW;AACZ;AACA;CACC;EACC,2BAA2B;EAC3B,qBAAqB;CACtB;CACA;EACC,WAAW;EACX,YAAY;CACb;AACD","sourcesContent":[".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\t/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n/* .chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: 0.2rem;\n\tborder-bottom: 1px solid #fff;\n} */\n.chat-users h3 {\n\ttext-align: center;\n\tmargin: 0 0 1rem;\n\tpadding-bottom: 0.4rem;\n\n\tborder-bottom: 1px solid #fff;\n}\n.chat-users p {\n\tmargin: 0 0 0.5rem;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -37,7 +37,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".home__container {\n\tmargin: 5vh auto 0;\n\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tdisplay: grid;\n\tgrid-template-columns: 1fr 1fr;\n\tmax-width: 60rem;\n\tgrid-gap: 1rem;\n\tgap: 1rem;\n\t/* justify-content: center; */\n\tjustify-items: center;\n\tborder-radius: 1rem;\n}\n\n.home__container--form-header {\n\tgrid-column: 1 / -1;\n\tcolor: #fff;\n\tfont-family: 'Ubuntu', sans-serif;\n\tfont-weight: lighter;\n}\n\n.home__container--form {\n\tmargin: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\tmargin-bottom: 2rem;\n\tjustify-content: center;\n\ttext-align: center;\n\twidth: 85%;\n\tgrid-gap: 1rem;\n\tgap: 1rem;\n}\n.home__container--form p {\n\ttext-align: left;\n\tmargin: 0;\n}\n", "",{"version":3,"sources":["webpack://src/components/Forms.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB,yFAAyF;CACzF,aAAa;CACb,8BAA8B;CAC9B,gBAAgB;CAChB,cAAS;CAAT,SAAS;CACT,6BAA6B;CAC7B,qBAAqB;CACrB,mBAAmB;AACpB;;AAEA;CACC,mBAAmB;CACnB,WAAW;CACX,iCAAiC;CACjC,oBAAoB;AACrB;;AAEA;CACC,SAAS;CACT,aAAa;CACb,sBAAsB;CACtB,mBAAmB;CACnB,uBAAuB;CACvB,kBAAkB;CAClB,UAAU;CACV,cAAS;CAAT,SAAS;AACV;AACA;CACC,gBAAgB;CAChB,SAAS;AACV","sourcesContent":[".home__container {\n\tmargin: 5vh auto 0;\n\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tdisplay: grid;\n\tgrid-template-columns: 1fr 1fr;\n\tmax-width: 60rem;\n\tgap: 1rem;\n\t/* justify-content: center; */\n\tjustify-items: center;\n\tborder-radius: 1rem;\n}\n\n.home__container--form-header {\n\tgrid-column: 1 / -1;\n\tcolor: #fff;\n\tfont-family: 'Ubuntu', sans-serif;\n\tfont-weight: lighter;\n}\n\n.home__container--form {\n\tmargin: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\tmargin-bottom: 2rem;\n\tjustify-content: center;\n\ttext-align: center;\n\twidth: 85%;\n\tgap: 1rem;\n}\n.home__container--form p {\n\ttext-align: left;\n\tmargin: 0;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".home__container {\n\tmargin: 5vh auto 0;\n\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tdisplay: grid;\n\tgrid-template-columns: 1fr 1fr;\n\tmax-width: 60rem;\n\tgrid-gap: 1rem;\n\tgap: 1rem;\n\tfont-family: 'Ubuntu', sans-serif;\n\tjustify-items: center;\n\tborder-radius: 0.5rem;\n}\n\n.home__container--form-header {\n\tgrid-column: 1 / -1;\n\tcolor: #fff;\n\tfont-weight: lighter;\n}\n\n.home__container--form {\n\tmargin: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\ttext-align: center;\n\twidth: 85%;\n\tgrid-gap: 1rem;\n\tgap: 1rem;\n}\n.home__container--form p {\n\ttext-align: left;\n\tmargin: 0 0 1rem;\n}\n\n@media only screen and (max-width: 900px) {\n\t.home__container {\n\t\tgrid-template-columns: 1fr;\n\t\talign-items: center;\n\t\tmargin: 0 auto;\n\t\tgrid-gap: 0;\n\t\tgap: 0;\n\t\tborder-radius: 0;\n\t\tbackground: none;\n\t\theight: 100vh;\n\t}\n\t.home__container img {\n\t\twidth: 20rem;\n\t}\n\t.home__container--form {\n\t\talign-self: flex-start;\n\t\twidth: 90%;\n\t}\n\t.home__container--form-header {\n\t\tmargin: 0;\n\t}\n}\n", "",{"version":3,"sources":["webpack://src/components/Forms.css"],"names":[],"mappings":"AAAA;CACC,kBAAkB;CAClB,yFAAyF;CACzF,aAAa;CACb,8BAA8B;CAC9B,gBAAgB;CAChB,cAAS;CAAT,SAAS;CACT,iCAAiC;CACjC,qBAAqB;CACrB,qBAAqB;AACtB;;AAEA;CACC,mBAAmB;CACnB,WAAW;CACX,oBAAoB;AACrB;;AAEA;CACC,SAAS;CACT,aAAa;CACb,sBAAsB;CACtB,uBAAuB;CACvB,kBAAkB;CAClB,UAAU;CACV,cAAS;CAAT,SAAS;AACV;AACA;CACC,gBAAgB;CAChB,gBAAgB;AACjB;;AAEA;CACC;EACC,0BAA0B;EAC1B,mBAAmB;EACnB,cAAc;EACd,WAAM;EAAN,MAAM;EACN,gBAAgB;EAChB,gBAAgB;EAChB,aAAa;CACd;CACA;EACC,YAAY;CACb;CACA;EACC,sBAAsB;EACtB,UAAU;CACX;CACA;EACC,SAAS;CACV;AACD","sourcesContent":[".home__container {\n\tmargin: 5vh auto 0;\n\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tdisplay: grid;\n\tgrid-template-columns: 1fr 1fr;\n\tmax-width: 60rem;\n\tgap: 1rem;\n\tfont-family: 'Ubuntu', sans-serif;\n\tjustify-items: center;\n\tborder-radius: 0.5rem;\n}\n\n.home__container--form-header {\n\tgrid-column: 1 / -1;\n\tcolor: #fff;\n\tfont-weight: lighter;\n}\n\n.home__container--form {\n\tmargin: 0;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\ttext-align: center;\n\twidth: 85%;\n\tgap: 1rem;\n}\n.home__container--form p {\n\ttext-align: left;\n\tmargin: 0 0 1rem;\n}\n\n@media only screen and (max-width: 900px) {\n\t.home__container {\n\t\tgrid-template-columns: 1fr;\n\t\talign-items: center;\n\t\tmargin: 0 auto;\n\t\tgap: 0;\n\t\tborder-radius: 0;\n\t\tbackground: none;\n\t\theight: 100vh;\n\t}\n\t.home__container img {\n\t\twidth: 20rem;\n\t}\n\t.home__container--form {\n\t\talign-self: flex-start;\n\t\twidth: 90%;\n\t}\n\t.home__container--form-header {\n\t\tmargin: 0;\n\t}\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -59,7 +59,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "html,\n*,\n*::before,\n*::afer {\n\tbox-sizing: border-box;\n}\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;;;;CAIC,sBAAsB;AACvB","sourcesContent":["html,\n*,\n*::before,\n*::afer {\n\tbox-sizing: border-box;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "html,\n*,\n*::before,\n*::afer {\n\tbox-sizing: border-box;\n}\n@media only screen and (max-width: 900px) {\n\tbody {\n\t\tmargin: 0;\n\t\tpadding: 0;\n\t\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\t\tbackground-size: cover;\n\t}\n}\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;;;;CAIC,sBAAsB;AACvB;AACA;CACC;EACC,SAAS;EACT,UAAU;EACV,yFAAyF;EACzF,sBAAsB;CACvB;AACD","sourcesContent":["html,\n*,\n*::before,\n*::afer {\n\tbox-sizing: border-box;\n}\n@media only screen and (max-width: 900px) {\n\tbody {\n\t\tmargin: 0;\n\t\tpadding: 0;\n\t\tbackground: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\t\tbackground-size: cover;\n\t}\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -162,16 +162,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Chat_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Chat.css */ "./src/components/Chat.css");
-/* harmony import */ var _Chat_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_Chat_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Routes */ "./src/components/Routes.js");
-/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/build/jwt-decode.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _TopBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TopBar */ "./src/components/TopBar.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/index.js");
+/* harmony import */ var _mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Send */ "./node_modules/@mui/icons-material/Send.js");
+/* harmony import */ var _mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/TextField/index.js");
+/* harmony import */ var _Chat_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Chat.css */ "./src/components/Chat.css");
+/* harmony import */ var _Chat_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_Chat_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Routes */ "./src/components/Routes.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/build/jwt-decode.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__);
 var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/components/Chat.js";
+
+
+
+
 
 
 
@@ -186,7 +195,7 @@ function Chat() {
   const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [user, setUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
   const [inputText, setInputText] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
-  const socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_6__["io"])();
+  const socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_10__["io"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     socket.on('getMessage', newMsg => {
       setMessages(prev => [...prev, newMsg]);
@@ -197,13 +206,12 @@ function Chat() {
       // socket.emit('disconnect');
       socket.off();
     };
-  }, []); // render users/messages only after user logs in
-
+  }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getUsers();
     getMessages();
   }, [user]);
-  const axiosJWT = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create();
+  const axiosJWT = axios__WEBPACK_IMPORTED_MODULE_9___default.a.create();
 
   const handleChange = e => {
     setInputText(e.target.value);
@@ -260,20 +268,9 @@ function Chat() {
     setUser(user);
   };
 
-  const logout = () => {
-    deleteToken();
-    setUser(null);
-  };
-
-  const deleteToken = async () => {
-    const response = await axios__WEBPACK_IMPORTED_MODULE_5___default.a.delete('/api/auth/logout');
-    console.log(response.data.message);
-    return response;
-  };
-
   const fetchRefreshToken = async () => {
     try {
-      const response = await axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('/api/auth/refresh_token', {
+      const response = await axios__WEBPACK_IMPORTED_MODULE_9___default.a.get('/api/auth/refresh_token', {
         mode: 'cors',
         credentials: 'include'
       });
@@ -289,7 +286,7 @@ function Chat() {
 
   axiosJWT.interceptors.request.use(async config => {
     let currentDate = new Date();
-    const decodedToken = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_4__["default"])(user.accessToken);
+    const decodedToken = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_8__["default"])(user.accessToken);
 
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
       const data = await fetchRefreshToken();
@@ -300,118 +297,150 @@ function Chat() {
   }, error => {
     return Promise.reject(error);
   });
-  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
-    children: [user ? /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
-      className: "chat_container",
-      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
-        className: "chat-users",
-        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h4", {
-          children: ["Welcome, ", user.username]
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+    children: [user ? /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_TopBar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        user: user,
+        handleUser: handleUser
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 128,
+        columnNumber: 6
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+        className: "chat_container",
+        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+          className: "chat-users",
+          children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+            className: "chat-users--header",
+            children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("h3", {
+              children: "Users"
+            }, void 0, false, {
+              fileName: _jsxFileName,
+              lineNumber: 133,
+              columnNumber: 9
+            }, this)
+          }, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 131,
+            columnNumber: 8
+          }, this), users.map(user => {
+            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("p", {
+              children: user.username
+            }, user.id, false, {
+              fileName: _jsxFileName,
+              lineNumber: 136,
+              columnNumber: 16
+            }, this);
+          })]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 137,
+          lineNumber: 130,
           columnNumber: 7
-        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h3", {
-          children: "Users"
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 138,
-          columnNumber: 7
-        }, this), users.map(user => {
-          return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
-            children: user.username
-          }, user.id, false, {
+        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+          className: "chat-message-box",
+          children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+            className: "chat-message-box__messages",
+            children: messages && messages.map((msg, i) => {
+              let currentUser = users.find(user => user.id === msg.user_id);
+              let userName = currentUser ? currentUser.username : '!';
+              return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+                className: "message_container",
+                children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("strong", {
+                  className: "username",
+                  children: msg.username ? msg.username : userName
+                }, void 0, false, {
+                  fileName: _jsxFileName,
+                  lineNumber: 147,
+                  columnNumber: 13
+                }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+                  className: "message",
+                  children: [" ", msg.text, " "]
+                }, void 0, true, {
+                  fileName: _jsxFileName,
+                  lineNumber: 148,
+                  columnNumber: 13
+                }, this)]
+              }, msg.id ? msg.id : `${user.username}-${i}`, true, {
+                fileName: _jsxFileName,
+                lineNumber: 146,
+                columnNumber: 12
+              }, this);
+            })
+          }, void 0, false, {
             fileName: _jsxFileName,
             lineNumber: 140,
-            columnNumber: 15
-          }, this);
-        })]
-      }, void 0, true, {
-        fileName: _jsxFileName,
-        lineNumber: 136,
-        columnNumber: 6
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
-        className: "chat-message-box",
-        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("div", {
-          className: "chat-message-box__messages",
-          children: messages && messages.map((msg, i) => {
-            let currentUser = users.find(user => user.id === msg.user_id);
-            let userName = currentUser ? currentUser.username : '!';
-            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("p", {
-              children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("strong", {
-                children: msg.username ? msg.username : userName
+            columnNumber: 8
+          }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("form", {
+            className: "send-message__container",
+            onSubmit: handleSubmit,
+            children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+              className: "send-message__input",
+              children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                id: "full-width-text-field",
+                placeholder: "Type message",
+                variant: "outlined",
+                fullWidth: true,
+                value: inputText,
+                onChange: handleChange
               }, void 0, false, {
                 fileName: _jsxFileName,
-                lineNumber: 151,
-                columnNumber: 12
-              }, this), ": ", msg.text]
-            }, msg.id ? msg.id : `${user.username}-${i}`, true, {
+                lineNumber: 155,
+                columnNumber: 10
+              }, this)
+            }, void 0, false, {
               fileName: _jsxFileName,
-              lineNumber: 150,
-              columnNumber: 11
-            }, this);
-          })
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 144,
-          columnNumber: 7
-        }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("form", {
-          onSubmit: handleSubmit,
-          children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("input", {
-            type: "text",
-            value: inputText,
-            onChange: handleChange
-          }, void 0, false, {
+              lineNumber: 154,
+              columnNumber: 9
+            }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              type: "submit",
+              "aria-label": "send",
+              children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_4___default.a, {}, void 0, false, {
+                fileName: _jsxFileName,
+                lineNumber: 165,
+                columnNumber: 10
+              }, this)
+            }, void 0, false, {
+              fileName: _jsxFileName,
+              lineNumber: 164,
+              columnNumber: 9
+            }, this)]
+          }, void 0, true, {
             fileName: _jsxFileName,
-            lineNumber: 157,
-            columnNumber: 8
-          }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
-            type: "submit",
-            children: "Send"
-          }, void 0, false, {
-            fileName: _jsxFileName,
-            lineNumber: 158,
+            lineNumber: 153,
             columnNumber: 8
           }, this)]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 156,
+          lineNumber: 139,
           columnNumber: 7
         }, this)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 143,
-        columnNumber: 6
-      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("button", {
-        onClick: logout,
-        children: "Logout"
-      }, void 0, false, {
-        fileName: _jsxFileName,
-        lineNumber: 161,
+        lineNumber: 129,
         columnNumber: 6
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 127,
       columnNumber: 5
-    }, this) : /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+    }, this) : /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
       exact: true,
       to: "/login"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 164,
+      lineNumber: 173,
       columnNumber: 5
-    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])(_Routes__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_Routes__WEBPACK_IMPORTED_MODULE_7__["default"], {
       isLoggedOut: !user,
       handleUser: handleUser
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 166,
+      lineNumber: 175,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 133,
+    lineNumber: 125,
     columnNumber: 3
   }, this);
 }
@@ -519,7 +548,7 @@ function LoginForm(props) {
       onSubmit: handleLogin,
       children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h2", {
         className: "home__container--form-header",
-        children: "\uD83D\uDCAC Login"
+        children: "Login"
       }, void 0, false, {
         fileName: _jsxFileName,
         lineNumber: 38,
@@ -686,7 +715,7 @@ function RegistrationForm(_ref) {
         onSubmit: handleRegister,
         children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_7__["jsxDEV"])("h2", {
           className: "home__container--form-header",
-          children: "\uD83D\uDCAC Register"
+          children: "Register"
         }, void 0, false, {
           fileName: _jsxFileName,
           lineNumber: 59,
@@ -824,6 +853,121 @@ function Routes(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Routes);
+
+/***/ }),
+
+/***/ "./src/components/TopBar.js":
+/*!**********************************!*\
+  !*** ./src/components/TopBar.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mui_material_AppBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material/AppBar */ "./node_modules/@mui/material/AppBar/index.js");
+/* harmony import */ var _mui_material_Toolbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Toolbar */ "./node_modules/@mui/material/Toolbar/index.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/Typography/index.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/index.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__);
+var _jsxFileName = "/Users/eminm/Desktop/my exercises/JS/portfolio/chat-app/client/src/components/TopBar.js";
+// import * as React from 'react';
+
+
+
+
+
+
+
+
+function TopBar(props) {
+  const [user, setUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.user);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    props.handleUser(user);
+  }, [user]);
+
+  const logout = () => {
+    deleteToken();
+    setUser(null);
+  };
+
+  const deleteToken = async () => {
+    const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete('/api/auth/logout');
+    console.log(response.data.message);
+    return response;
+  };
+
+  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])(_mui_material_AppBar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])(_mui_material_Toolbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      style: {
+        backgroundColor: 'rgb(100,150,90'
+      },
+      children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        variant: "h6",
+        component: "div",
+        sx: {
+          marginRight: 2
+        },
+        children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])("img", {
+          width: "40",
+          src: "https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-chat-multimedia-kiranshastry-gradient-kiranshastry.png"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 34,
+          columnNumber: 6
+        }, this)
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 33,
+        columnNumber: 5
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        style: {
+          fontWeight: 'lighter'
+        },
+        variant: "h6",
+        component: "div",
+        sx: {
+          flexGrow: 1
+        },
+        children: user && `Welcome, ${user.username}`
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 39,
+        columnNumber: 5
+      }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])(_mui_material_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        color: "inherit",
+        onClick: logout,
+        children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_6__["jsxDEV"])("img", {
+          width: "35",
+          src: "https://img.icons8.com/fluency/48/000000/shutdown.png"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 44,
+          columnNumber: 6
+        }, this), "Logout"]
+      }, void 0, true, {
+        fileName: _jsxFileName,
+        lineNumber: 43,
+        columnNumber: 5
+      }, this)]
+    }, void 0, true, {
+      fileName: _jsxFileName,
+      lineNumber: 32,
+      columnNumber: 4
+    }, this)
+  }, void 0, false, {
+    fileName: _jsxFileName,
+    lineNumber: 31,
+    columnNumber: 3
+  }, this);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (TopBar);
 
 /***/ }),
 
