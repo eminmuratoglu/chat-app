@@ -4,3 +4,11 @@ html,
 *::afer {
 	box-sizing: border-box;
 }
+@media only screen and (max-width: 900px) {
+	body {
+		margin: 0;
+		padding: 0;
+		background: linear-gradient(225deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);
+		background-size: cover;
+	}
+}
