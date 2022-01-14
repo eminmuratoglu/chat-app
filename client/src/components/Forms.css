@@ -5,15 +5,14 @@
 	grid-template-columns: 1fr 1fr;
 	max-width: 60rem;
 	gap: 1rem;
-	/* justify-content: center; */
+	font-family: 'Ubuntu', sans-serif;
 	justify-items: center;
-	border-radius: 1rem;
+	border-radius: 0.5rem;
 }
 
 .home__container--form-header {
 	grid-column: 1 / -1;
 	color: #fff;
-	font-family: 'Ubuntu', sans-serif;
 	font-weight: lighter;
 }
 
@@ -21,7 +20,6 @@
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 2rem;
 	justify-content: center;
 	text-align: center;
 	width: 85%;
@@ -29,5 +27,27 @@
 }
 .home__container--form p {
 	text-align: left;
-	margin: 0;
+	margin: 0 0 1rem;
+}
+
+@media only screen and (max-width: 900px) {
+	.home__container {
+		grid-template-columns: 1fr;
+		align-items: center;
+		margin: 0 auto;
+		gap: 0;
+		border-radius: 0;
+		background: none;
+		height: 100vh;
+	}
+	.home__container img {
+		width: 20rem;
+	}
+	.home__container--form {
+		align-self: flex-start;
+		width: 90%;
+	}
+	.home__container--form-header {
+		margin: 0;
+	}
 }

@@ -35,7 +35,7 @@ function LoginForm(props) {
 		<div className="home__container">
 			<img src={webChatImg} alt="web-chat" />
 			<form className="home__container--form" onSubmit={handleLogin}>
-				<h2 className="home__container--form-header">💬 Login</h2>
+				<h2 className="home__container--form-header">Login</h2>
 				<TextField
 					required
 					id="outlined"

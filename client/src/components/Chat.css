@@ -1,46 +1,76 @@
 .chat_container {
+	font-family: 'Ubuntu', sans-serif;
+	margin: 5rem auto 0;
+	max-width: 60rem;
 	display: grid;
-	grid-template-columns: 20rem 40rem;
-	grid-template-rows: minmax(20rem, auto);
+	/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */
+	grid-template-columns: 15rem 40rem;
 	grid-gap: 1.2rem;
 	justify-content: center;
 	align-items: start;
 }
-.chat-users h3 {
-	margin: 1rem 0 0 0;
-	width: 100%;
-}
+
 .chat-users {
-	min-height: 20rem;
-	padding-left: 1rem;
-	border: 1px solid black;
+	padding: 1rem;
+}
+/* .chat-users--header {
+	display: flex;
+	justify-content: center;
+	gap: 0.2rem;
+	border-bottom: 1px solid #fff;
+} */
+.chat-users h3 {
+	text-align: center;
+	margin: 0 0 1rem;
+	padding-bottom: 0.4rem;
+
+	border-bottom: 1px solid #fff;
+}
+.chat-users p {
+	margin: 0 0 0.5rem;
+}
+.chat-users,
+.chat-message-box {
+	overflow-y: scroll;
+	color: #fff;
+	height: 70vh;
+	background: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);
+	border-radius: 0.5rem;
 }
 
 .chat-message-box {
-	min-height: 20rem;
-	border: 1px solid black;
+	padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
-.chat-message-box__messages {
-	padding: 1rem;
+
+.message_container {
+	margin: 0 0 0.5rem;
 }
-.chat-message-box__messages p {
-	margin: 0;
+.message_container .message {
+	width: max-content;
+	max-width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	padding: 0.7rem 0.4rem;
+	border-radius: 0.5rem 0;
 }
-.chat-message-box form {
-	padding: 0;
+
+.send-message__container {
 	display: flex;
-	gap: 0.2rem;
+	justify-content: space-between;
+	gap: 0.3rem;
 }
-.chat-message-box form > * {
-	height: 1.5rem;
-}
-.chat-message-box form input {
+.send-message__input {
 	width: 100%;
 }
-.chat-message-box form button {
-	width: 5rem;
-	height: 1.8rem;
+@media only screen and (max-width: 900px) {
+	.chat_container {
+		grid-template-columns: 95vw;
+		margin: 4.5rem auto 0;
+	}
+	.chat-message-box {
+		grid-row: 1;
+		height: 80vh;
+	}
 }

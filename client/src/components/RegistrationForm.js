@@ -56,7 +56,7 @@ function RegistrationForm({ isLoggedOut }) {
 		<div className="home__container">
 			<img src={webChatImg} alt="web-chat" />
 			<form className="home__container--form" onSubmit={handleRegister}>
-				<h2 className="home__container--form-header">💬 Register</h2>
+				<h2 className="home__container--form-header">Register</h2>
 				<TextField
 					required
 					id="outlined"
