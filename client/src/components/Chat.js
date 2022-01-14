@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import TopBar from './TopBar';
+import IconButton from '@mui/material/IconButton';
+import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
+import './Chat.css';
 import Routes from './Routes';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
@@ -27,7 +32,6 @@ function Chat() {
 		};
 	}, []);
 
-	// render users/messages only after user logs in
 	useEffect(
 		() => {
 			getUsers();
@@ -86,17 +90,6 @@ function Chat() {
 		setUser(user);
 	};
 
-	const logout = () => {
-		deleteToken();
-		setUser(null);
-	};
-
-	const deleteToken = async () => {
-		const response = await axios.delete('/api/auth/logout');
-		console.log(response.data.message);
-		return response;
-	};
-
 	const fetchRefreshToken = async () => {
 		try {
 			const response = await axios.get('/api/auth/refresh_token', {
@@ -131,33 +124,50 @@ function Chat() {
 	return (
 		<div>
 			{user ? (
-				<div className="chat_container">
-					<div className="chat-users">
-						<h4>Welcome, {user.username}</h4>
-						<h3>Users</h3>
-						{users.map((user) => {
-							return <p key={user.id}>{user.username}</p>;
-						})}
-					</div>
-					<div className="chat-message-box">
-						<div className="chat-message-box__messages">
-							{messages &&
-								messages.map((msg, i) => {
-									let currentUser = users.find((user) => user.id === msg.user_id);
-									let userName = currentUser ? currentUser.username : '!';
-									return (
-										<p key={msg.id ? msg.id : `${user.username}-${i}`}>
-											<strong>{msg.username ? msg.username : userName}</strong>: {msg.text}
-										</p>
-									);
-								})}
+				<div>
+					<TopBar user={user} handleUser={handleUser} />
+					<div className="chat_container">
+						<div className="chat-users">
+							<div className="chat-users--header">
+								{/* <img src="https://img.icons8.com/color-glass/48/000000/group.png" width="30" alt="users png" /> */}
+								<h3>Users</h3>
+							</div>
+							{users.map((user) => {
+								return <p key={user.id}>{user.username}</p>;
+							})}
 						</div>
-						<form onSubmit={handleSubmit}>
-							<input type="text" value={inputText} onChange={handleChange} />
-							<button type="submit">Send</button>
-						</form>
+						<div className="chat-message-box">
+							<div className="chat-message-box__messages">
+								{messages &&
+									messages.map((msg, i) => {
+										let currentUser = users.find((user) => user.id === msg.user_id);
+										let userName = currentUser ? currentUser.username : '!';
+										return (
+											<div className="message_container" key={msg.id ? msg.id : `${user.username}-${i}`}>
+												<strong className="username">{msg.username ? msg.username : userName}</strong>
+												<div className="message"> {msg.text} </div>
+											</div>
+										);
+									})}
+							</div>
+							<form className="send-message__container" onSubmit={handleSubmit}>
+								<div className="send-message__input">
+									<TextField
+										id="full-width-text-field"
+										placeholder="Type message"
+										variant="outlined"
+										fullWidth
+										value={inputText}
+										onChange={handleChange}
+									/>
+								</div>
+								<IconButton type="submit" aria-label="send">
+									<SendIcon />
+								</IconButton>
+								{/* <button type="submit">Send</button> */}
+							</form>
+						</div>
 					</div>
-					<button onClick={logout}>Logout</button>
 				</div>
 			) : (
 				<Redirect exact to="/login" />
