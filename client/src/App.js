@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import Chat from './components/Chat';
 import axios from 'axios';
-import './App.css';
 
 function App() {
 	return (
 		<div className="App">
-			<h1>chat app</h1>
 			<Chat />
 		</div>
 	);
