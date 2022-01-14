@@ -164,7 +164,6 @@ function Chat() {
 								<IconButton type="submit" aria-label="send">
 									<SendIcon />
 								</IconButton>
-								{/* <button type="submit">Send</button> */}
 							</form>
 						</div>
 					</div>
