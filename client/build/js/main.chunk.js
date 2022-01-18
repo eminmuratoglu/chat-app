@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\t/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n/* .chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: 0.2rem;\n\tborder-bottom: 1px solid #fff;\n} */\n.chat-users h3 {\n\ttext-align: center;\n\tmargin: 0 0 1rem;\n\tpadding-bottom: 0.4rem;\n\n\tborder-bottom: 1px solid #fff;\n}\n.chat-users p {\n\tmargin: 0 0 0.5rem;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgrid-gap: 0.3rem;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n", "",{"version":3,"sources":["webpack://src/components/Chat.css"],"names":[],"mappings":"AAAA;CACC,iCAAiC;CACjC,mBAAmB;CACnB,gBAAgB;CAChB,aAAa;CACb,mEAAmE;CACnE,kCAAkC;CAClC,gBAAgB;CAChB,uBAAuB;CACvB,kBAAkB;AACnB;;AAEA;CACC,aAAa;AACd;AACA;;;;;GAKG;AACH;CACC,kBAAkB;CAClB,gBAAgB;CAChB,sBAAsB;;CAEtB,6BAA6B;AAC9B;AACA;CACC,kBAAkB;AACnB;AACA;;CAEC,kBAAkB;CAClB,WAAW;CACX,YAAY;CACZ,wFAAwF;CACxF,qBAAqB;AACtB;;AAEA;CACC,aAAa;CACb,aAAa;CACb,sBAAsB;CACtB,8BAA8B;AAC/B;;AAEA;CACC,kBAAkB;AACnB;AACA;CACC,kBAAkB;CAClB,eAAe;CACf,oCAAoC;CACpC,sBAAsB;CACtB,uBAAuB;AACxB;;AAEA;CACC,aAAa;CACb,8BAA8B;CAC9B,gBAAW;CAAX,WAAW;AACZ;AACA;CACC,WAAW;AACZ;AACA;CACC;EACC,2BAA2B;EAC3B,qBAAqB;CACtB;CACA;EACC,WAAW;EACX,YAAY;CACb;AACD","sourcesContent":[".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\t/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n/* .chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\tgap: 0.2rem;\n\tborder-bottom: 1px solid #fff;\n} */\n.chat-users h3 {\n\ttext-align: center;\n\tmargin: 0 0 1rem;\n\tpadding-bottom: 0.4rem;\n\n\tborder-bottom: 1px solid #fff;\n}\n.chat-users p {\n\tmargin: 0 0 0.5rem;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n.chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tgrid-gap: 0.3rem;\n\tgap: 0.3rem;\n\tborder-bottom: 1px solid #fff;\n\tmargin-bottom: 1rem;\n}\n.chat-users--header img {\n\twidth: -moz-fit-content;\n\twidth: fit-content;\n}\n.chat-users h3 {\n\tmargin: 0;\n}\n.users-each {\n\tdisplay: flex;\n\t/* justify-content: flex-start; */\n\talign-items: center;\n\tgrid-gap: 0.1rem;\n\tgap: 0.1rem;\n}\n.chat-users p {\n\t/* margin: 0 0 0.5rem; */\n\tmargin: 0;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgrid-gap: 0.3rem;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n", "",{"version":3,"sources":["webpack://src/components/Chat.css"],"names":[],"mappings":"AAAA;CACC,iCAAiC;CACjC,mBAAmB;CACnB,gBAAgB;CAChB,aAAa;CACb,kCAAkC;CAClC,gBAAgB;CAChB,uBAAuB;CACvB,kBAAkB;AACnB;;AAEA;CACC,aAAa;AACd;AACA;CACC,aAAa;CACb,uBAAuB;CACvB,mBAAmB;CACnB,gBAAW;CAAX,WAAW;CACX,6BAA6B;CAC7B,mBAAmB;AACpB;AACA;CACC,uBAAkB;CAAlB,kBAAkB;AACnB;AACA;CACC,SAAS;AACV;AACA;CACC,aAAa;CACb,iCAAiC;CACjC,mBAAmB;CACnB,gBAAW;CAAX,WAAW;AACZ;AACA;CACC,wBAAwB;CACxB,SAAS;AACV;AACA;;CAEC,kBAAkB;CAClB,WAAW;CACX,YAAY;CACZ,wFAAwF;CACxF,qBAAqB;AACtB;;AAEA;CACC,aAAa;CACb,aAAa;CACb,sBAAsB;CACtB,8BAA8B;AAC/B;;AAEA;CACC,kBAAkB;AACnB;AACA;CACC,kBAAkB;CAClB,eAAe;CACf,oCAAoC;CACpC,sBAAsB;CACtB,uBAAuB;AACxB;;AAEA;CACC,aAAa;CACb,8BAA8B;CAC9B,gBAAW;CAAX,WAAW;AACZ;AACA;CACC,WAAW;AACZ;AACA;CACC;EACC,2BAA2B;EAC3B,qBAAqB;CACtB;CACA;EACC,WAAW;EACX,YAAY;CACb;AACD","sourcesContent":[".chat_container {\n\tfont-family: 'Ubuntu', sans-serif;\n\tmargin: 5rem auto 0;\n\tmax-width: 60rem;\n\tdisplay: grid;\n\tgrid-template-columns: 15rem 40rem;\n\tgrid-gap: 1.2rem;\n\tjustify-content: center;\n\talign-items: start;\n}\n\n.chat-users {\n\tpadding: 1rem;\n}\n.chat-users--header {\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\tgap: 0.3rem;\n\tborder-bottom: 1px solid #fff;\n\tmargin-bottom: 1rem;\n}\n.chat-users--header img {\n\twidth: fit-content;\n}\n.chat-users h3 {\n\tmargin: 0;\n}\n.users-each {\n\tdisplay: flex;\n\t/* justify-content: flex-start; */\n\talign-items: center;\n\tgap: 0.1rem;\n}\n.chat-users p {\n\t/* margin: 0 0 0.5rem; */\n\tmargin: 0;\n}\n.chat-users,\n.chat-message-box {\n\toverflow-y: scroll;\n\tcolor: #fff;\n\theight: 70vh;\n\tbackground: linear-gradient(45deg, rgba(189, 203, 39, 1) 0%, rgba(27, 194, 219, 1) 100%);\n\tborder-radius: 0.5rem;\n}\n\n.chat-message-box {\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n.message_container {\n\tmargin: 0 0 0.5rem;\n}\n.message_container .message {\n\twidth: max-content;\n\tmax-width: 100%;\n\tbackground-color: rgba(0, 0, 0, 0.3);\n\tpadding: 0.7rem 0.4rem;\n\tborder-radius: 0.5rem 0;\n}\n\n.send-message__container {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tgap: 0.3rem;\n}\n.send-message__input {\n\twidth: 100%;\n}\n@media only screen and (max-width: 900px) {\n\t.chat_container {\n\t\tgrid-template-columns: 95vw;\n\t\tmargin: 4.5rem auto 0;\n\t}\n\t.chat-message-box {\n\t\tgrid-row: 1;\n\t\theight: 80vh;\n\t}\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -312,24 +312,45 @@ function Chat() {
           className: "chat-users",
           children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
             className: "chat-users--header",
-            children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("h3", {
+            children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("img", {
+              src: "https://img.icons8.com/color-glass/48/000000/group.png",
+              width: "30",
+              alt: "users png"
+            }, void 0, false, {
+              fileName: _jsxFileName,
+              lineNumber: 132,
+              columnNumber: 9
+            }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("h3", {
               children: "Users"
             }, void 0, false, {
               fileName: _jsxFileName,
               lineNumber: 133,
               columnNumber: 9
-            }, this)
-          }, void 0, false, {
+            }, this)]
+          }, void 0, true, {
             fileName: _jsxFileName,
             lineNumber: 131,
             columnNumber: 8
           }, this), users.map(user => {
-            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("p", {
-              children: user.username
-            }, user.id, false, {
+            return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
+              className: "users-each",
+              children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("img", {
+                src: "https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-user-back-to-school-kmg-design-flat-kmg-design.png"
+              }, void 0, false, {
+                fileName: _jsxFileName,
+                lineNumber: 138,
+                columnNumber: 11
+              }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("p", {
+                children: user.username
+              }, void 0, false, {
+                fileName: _jsxFileName,
+                lineNumber: 139,
+                columnNumber: 11
+              }, this)]
+            }, user.id, true, {
               fileName: _jsxFileName,
-              lineNumber: 136,
-              columnNumber: 16
+              lineNumber: 137,
+              columnNumber: 10
             }, this);
           })]
         }, void 0, true, {
@@ -350,25 +371,25 @@ function Chat() {
                   children: msg.username ? msg.username : userName
                 }, void 0, false, {
                   fileName: _jsxFileName,
-                  lineNumber: 147,
+                  lineNumber: 152,
                   columnNumber: 13
                 }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("div", {
                   className: "message",
                   children: [" ", msg.text, " "]
                 }, void 0, true, {
                   fileName: _jsxFileName,
-                  lineNumber: 148,
+                  lineNumber: 153,
                   columnNumber: 13
                 }, this)]
               }, msg.id ? msg.id : `${user.username}-${i}`, true, {
                 fileName: _jsxFileName,
-                lineNumber: 146,
+                lineNumber: 151,
                 columnNumber: 12
               }, this);
             })
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 140,
+            lineNumber: 145,
             columnNumber: 8
           }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("form", {
             className: "send-message__container",
@@ -384,34 +405,34 @@ function Chat() {
                 onChange: handleChange
               }, void 0, false, {
                 fileName: _jsxFileName,
-                lineNumber: 155,
+                lineNumber: 160,
                 columnNumber: 10
               }, this)
             }, void 0, false, {
               fileName: _jsxFileName,
-              lineNumber: 154,
+              lineNumber: 159,
               columnNumber: 9
             }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "submit",
               "aria-label": "send",
               children: /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_4___default.a, {}, void 0, false, {
                 fileName: _jsxFileName,
-                lineNumber: 165,
+                lineNumber: 170,
                 columnNumber: 10
               }, this)
             }, void 0, false, {
               fileName: _jsxFileName,
-              lineNumber: 164,
+              lineNumber: 169,
               columnNumber: 9
             }, this)]
           }, void 0, true, {
             fileName: _jsxFileName,
-            lineNumber: 153,
+            lineNumber: 158,
             columnNumber: 8
           }, this)]
         }, void 0, true, {
           fileName: _jsxFileName,
-          lineNumber: 139,
+          lineNumber: 144,
           columnNumber: 7
         }, this)]
       }, void 0, true, {
@@ -428,14 +449,14 @@ function Chat() {
       to: "/login"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 173,
+      lineNumber: 177,
       columnNumber: 5
     }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])(_Routes__WEBPACK_IMPORTED_MODULE_7__["default"], {
       isLoggedOut: !user,
       handleUser: handleUser
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 175,
+      lineNumber: 179,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
