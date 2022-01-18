@@ -129,11 +129,16 @@ function Chat() {
 					<div className="chat_container">
 						<div className="chat-users">
 							<div className="chat-users--header">
-								{/* <img src="https://img.icons8.com/color-glass/48/000000/group.png" width="30" alt="users png" /> */}
+								<img src="https://img.icons8.com/color-glass/48/000000/group.png" width="30" alt="users png" />
 								<h3>Users</h3>
 							</div>
 							{users.map((user) => {
-								return <p key={user.id}>{user.username}</p>;
+								return (
+									<div className="users-each" key={user.id}>
+										<img src="https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-user-back-to-school-kmg-design-flat-kmg-design.png" />
+										<p>{user.username}</p>
+									</div>
+								);
 							})}
 						</div>
 						<div className="chat-message-box">

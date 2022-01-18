@@ -3,7 +3,6 @@
 	margin: 5rem auto 0;
 	max-width: 60rem;
 	display: grid;
-	/* grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem)); */
 	grid-template-columns: 15rem 40rem;
 	grid-gap: 1.2rem;
 	justify-content: center;
@@ -13,21 +12,29 @@
 .chat-users {
 	padding: 1rem;
 }
-/* .chat-users--header {
+.chat-users--header {
 	display: flex;
 	justify-content: center;
-	gap: 0.2rem;
+	align-items: center;
+	gap: 0.3rem;
 	border-bottom: 1px solid #fff;
-} */
+	margin-bottom: 1rem;
+}
+.chat-users--header img {
+	width: fit-content;
+}
 .chat-users h3 {
-	text-align: center;
-	margin: 0 0 1rem;
-	padding-bottom: 0.4rem;
-
-	border-bottom: 1px solid #fff;
+	margin: 0;
+}
+.users-each {
+	display: flex;
+	/* justify-content: flex-start; */
+	align-items: center;
+	gap: 0.1rem;
 }
 .chat-users p {
-	margin: 0 0 0.5rem;
+	/* margin: 0 0 0.5rem; */
+	margin: 0;
 }
 .chat-users,
 .chat-message-box {
