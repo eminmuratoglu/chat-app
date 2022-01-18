@@ -1,38 +1,15 @@
 const { Pool } = require('pg');
 
+// const pool = new Pool({
+// 	user: process.env.DB_PG_USER,
+// 	password: process.env.DB_PG_PASSWORD,
+// 	host: process.env.DB_PG_HOST,
+// 	database: process.env.DB_PG_DATABASE,
+// 	port: process.env.DB_PG_PORT
+// });
+
 const pool = new Pool({
-	host: process.env.DB_PG_HOST,
-	user: process.env.DB_PG_USER,
-	password: process.env.DB_PG_PASSWORD,
-	port: 5432,
-	database: process.env.DB_PG_DATABASE
+	connectionString: process.env.DATABASE_URL
 });
 
 module.exports = pool;
-
-///////////////
-
-// CREATE TABLE users(
-// 	id SERIAL PRIMARY KEY,
-// 	username VARCHAR(50) NOT NULL,
-// 	created_at TIMESTAMPTZ DEFAULT NOW()
-// )
-
-// CREATE TABLE messages(
-// 	id SERIAL PRIMARY KEY,
-// 	user_id SERIAL,
-// 	text VARCHAR(250) NOT NULL,
-// 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-// 	FOREIGN KEY (user_id) REFERENCES users(id)
-// 		ON UPDATE CASCADE
-// 		ON DELETE CASCADE
-// )
-
-// CREATE TABLE messages(
-// 	id SERIAL NOT NULL,
-// 	user_id SERIAL NOT NULL,
-// 	username VARCHAR(50) NOT NULL,
-// 	text VARCHAR(250),
-// 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-// 	PRIMARY KEY(id)
-// )
