@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
 // const devConfig = {
@@ -8,17 +9,42 @@ const { Pool } = require('pg');
 // 	port: process.env.DB_PG_PORT
 // };
 
-const productionConfig = {
+// const productionConfig = {
+// 	connectionString: process.env.DATABASE_URL,
+// 	ssl: {
+// 		rejectUnauthorized: false
+// 	}
+// };
+// const productionConfig = {
+// 	connectionString: process.env.ELEPHANT_DATABASE_URL,
+// 	ssl: {
+// 		rejectUnauthorized: false
+// 	}
+// };
+
+// const pool = new Pool(process.env.NODE_ENV === 'production' ? productionConfig : devConfig);
+
+// pool.connect().then(() => {
+// 	console.log('connected to db');
+// });
+
+// module.exports = pool;
+
+const pool = new Pool({
 	connectionString: process.env.DATABASE_URL,
+	port: 5432,
 	ssl: {
 		rejectUnauthorized: false
 	}
-};
+});
 
-const pool = new Pool(process.env.NODE_ENV === 'production' ? productionConfig : devConfig);
-
-pool.connect().then(() => {
-	console.log('connected to db');
+pool.connect((err, client, release) => {
+	if (err) return console.error('Error acquiring client', err.stack);
+	client.query('SELECT NOW()', (err, result) => {
+		release();
+		if (err) return console.error('Error executing query', err.stack);
+		console.log(`👌 ${result.rows[0].now}: connected to db 👌`);
+	});
 });
 
 module.exports = pool;
