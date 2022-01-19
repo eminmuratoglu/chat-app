@@ -1,12 +1,12 @@
 const { Pool } = require('pg');
 
-const devConfig = {
-	user: process.env.DB_PG_USER,
-	password: process.env.DB_PG_PASSWORD,
-	host: process.env.DB_PG_HOST,
-	database: process.env.DB_PG_DATABASE,
-	port: process.env.DB_PG_PORT
-};
+// const devConfig = {
+// 	user: process.env.DB_PG_USER,
+// 	password: process.env.DB_PG_PASSWORD,
+// 	host: process.env.DB_PG_HOST,
+// 	database: process.env.DB_PG_DATABASE,
+// 	port: process.env.DB_PG_PORT
+// };
 
 const productionConfig = {
 	connectionString: process.env.DATABASE_URL,
@@ -17,6 +17,8 @@ const productionConfig = {
 
 const pool = new Pool(process.env.NODE_ENV === 'production' ? productionConfig : devConfig);
 
-pool.connect();
+pool.connect().then(() => {
+	console.log('connected to db');
+});
 
 module.exports = pool;
