@@ -31,7 +31,7 @@ const { Pool } = require('pg');
 // module.exports = pool;
 
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL,
+	connectionString: process.env.ELEPHANT_DATABASE_URL,
 	port: 5432,
 	ssl: {
 		rejectUnauthorized: false
