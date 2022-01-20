@@ -321,7 +321,7 @@ function Chat() {
               lineNumber: 132,
               columnNumber: 9
             }, this), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_11__["jsxDEV"])("h3", {
-              children: "Users"
+              children: "All Users"
             }, void 0, false, {
               fileName: _jsxFileName,
               lineNumber: 133,
