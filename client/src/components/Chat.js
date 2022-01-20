@@ -130,7 +130,7 @@ function Chat() {
 						<div className="chat-users">
 							<div className="chat-users--header">
 								<img src="https://img.icons8.com/color-glass/48/000000/group.png" width="30" alt="users png" />
-								<h3>Users</h3>
+								<h3>All Users</h3>
 							</div>
 							{users.map((user) => {
 								return (
